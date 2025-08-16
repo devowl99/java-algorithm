@@ -1,0 +1,27 @@
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# Build
+/bin/
+/target/
+/out/
+/build/
+
+# Eclipse
+.project
+.classpath
+.settings/
+.recommenders/
+.metadata/
+
+# IntelliJ
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
