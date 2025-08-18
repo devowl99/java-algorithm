@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class BJ1325 {
 	static int N, M; 
 	static List<Integer>[] com;
 	static List<Integer> maxComList;
