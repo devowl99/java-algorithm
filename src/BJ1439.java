@@ -1,37 +1,41 @@
 import java.io.*;
 import java.util.*;
 
-public class BJ13305 {
-	static int N;
-	static List<Integer> road;
-	static List<Integer> city;
-	
+public class BJ1439 {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		N = Integer.parseInt(br.readLine());
+		String s = br.readLine();
 		
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		road = new ArrayList<>();
-		while (st.hasMoreTokens()) {
-			road.add(Integer.parseInt(st.nextToken()));
+		List<Integer> nums = new ArrayList<>();
+		for (int i=0; i<s.length(); i++) {
+			nums.add(s.charAt(i)-'0');
 		}
 		
-		StringTokenizer st2 = new StringTokenizer(br.readLine());
-		city = new ArrayList<>();
-		while (st2.hasMoreTokens()) {
-			city.add(Integer.parseInt(st2.nextToken()));
+		int count0 = 0;
+		int count1 = 0;
+		
+		int former = nums.get(0);
+		if (former == 0) {
+			count0++;
+		}
+		else {
+			count1++;
 		}
 		
-		long minCost = city.get(0);
-		long totalCost = 0;
-		for (int i=0; i<city.size()-1; i++) {
-			if (minCost > city.get(i)) {
-				minCost = (long) city.get(i);
+		int recent = 0;
+		for (int i=1; i<nums.size(); i++) {
+			recent = nums.get(i);
+			if (former != recent) {
+				if (recent == 0) {
+					count0++;
+				}
+				else {
+					count1++;
+				}
 			}
-			
-			totalCost += (road.get(i) * minCost);
+			former = recent;
 		}
 		
-		System.out.println(totalCost);
+		System.out.println(Math.min(count0, count1));
 	}
 }
