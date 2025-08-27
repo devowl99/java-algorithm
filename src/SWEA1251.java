@@ -53,18 +53,38 @@ public class SWEA1251 {
 			// 간선이 만들어질 수 있는 모든 경우의 수 생성
             for (int i = 0; i < N; i++) {
                 for (int j = i + 1; j < N; j++) {
-                    double w = calW(X[i], X[j], Y[i], Y[j]) * E;
+                    double w = calWeight(X[i], X[j], Y[i], Y[j]) * E;
                     edgeList.add(new Edge(i, j, w));
                 }
             }
 			
 			Collections.sort(edgeList);
+			
+			int count = 0;
+			double totalWeight = 0;
+			for (Edge x: edgeList) {
+				if (union(x.from, x.to)) {
+					count++;
+					totalWeight += x.weight;
+				}
+				if (count == N-1) break; // 간선 수가 (정점-1)개일 때 종료
+			}
+			
+			sb.append("#").append(tc).append(" ").append(Math.round(totalWeight)).append("\n");
 		}
+		System.out.println(sb);
 	}
 	
-	static int calW(int x1, int x2, int y1, int y2) {
+	// 오버플로우 발생
+	static int calWeight(int x1, int x2, int y1, int y2) {
 		return (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2);
 	}
+	
+//	static long calWeight(int x1, int x2, int y1, int y2) {
+//	    long dx = (long)x1-x2;
+//	    long dy = (long)y1-y2;
+//	    return dx*dx + dy*dy;
+//	}
 	
 	static void make() {
 		for (int i=0; i<N; i++) p[i] = i;
