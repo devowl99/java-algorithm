@@ -14,12 +14,14 @@ public class SWEA2382 {
 	static class Micro{
 		int row, col, num, move; // 1(상) 2(하) 3(좌) 4(우)
 		boolean dead = false;
+		int originNum;
 		
 		Micro(int row, int col, int num, int move){
 			this.row = row;
 			this.col = col;
 			this.num = num;
 			this.move = move;
+			this.originNum = num;
 		}
 	}
 	
@@ -49,22 +51,32 @@ public class SWEA2382 {
 				micro[k] = new Micro(Integer.parseInt(st2.nextToken()), Integer.parseInt(st2.nextToken()), Integer.parseInt(st2.nextToken()), Integer.parseInt(st2.nextToken()));
 			}
 			
-			
+			// M 시간동안 활동
 			for (int m=0; m<M; m++) {
+				// 동시에 모든 미생물 활동
 				for (int k=0; k<K; k++) {
 					if (!micro[k].dead) action(micro[k]);
 				}
+				// 겹치는 경우
 				for (int k=0; k<K-1; k++) {
-					// 겹치는 경우
-					if ((micro[k].row == micro[k+1].row) && (micro[k].col == micro[k+1].col)) {
-						if (micro[k].num > micro[k+1].num) {
-							micro[k+1].dead = true;
-							micro[k].num += micro[k+1].num;
+					for (int l=k+1; l<K; l++) {
+						if (!micro[k].dead && !micro[l].dead) {
+							if ((micro[k].row == micro[l].row) && (micro[k].col == micro[l].col)) {
+								if (micro[k].originNum > micro[l].originNum) {
+									micro[l].dead = true;
+									micro[k].num += micro[l].num;
+								}
+								else if (micro[k].originNum < micro[l].originNum) {
+									micro[k].dead = true;
+									micro[l].num += micro[k].num;
+								}
+							}
 						}
-						else {
-							micro[k].dead = true;
-							micro[k+1].num += micro[k].num;
-						}
+					}
+				}
+				for (int i=0; i<K; i++) {
+					if (!micro[i].dead && micro[i].num != micro[i].originNum) {
+						micro[i].originNum = micro[i].num;
 					}
 				}
 			}
