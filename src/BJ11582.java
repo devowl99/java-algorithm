@@ -3,39 +3,40 @@ import java.util.*;
 
 public class BJ11582 {
 	static int N;
-	static List<Integer> score;
+	static int[] score;
 	static int k;
+	static int[] arr;
 	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
 		
 		N = Integer.parseInt(br.readLine());
-		score = new ArrayList<>();
+		score = new int[N];
 		
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		for (int i=0; i<N; i++) {
-			score.add(Integer.parseInt(st.nextToken()));
+			score[i] = Integer.parseInt(st.nextToken());
 		}
+		k = Integer.parseInt(br.readLine());
 		
-		solve(score, score.length, 0);
-	}
-	
-	static void solve(int[] arr, int l, int count) {
-		if (count == k) {
-			return;
-		}
-		int len = l/2;
+		int len = N/k;
+		arr = new int[len];
 		
-		int arrL[] = new int[len];
-		for (int i=0; i<len; i++) {
-			arrL[i] = score[i];
-		}
-		int arrR[] = new int[len];
-		for (int i=len; i<l; i++) {
-			arrR[i-len] = score[i];
-		}
-		
-		solve(arrL, arrL.length, count+1);
-		solve(arrR, arrR.length, count+1);
-	}
+        for (int i = 0; i < N; i += len) {
+            for (int j = 0; j < len; j++) {
+                arr[j] = score[i + j];
+            }
+            Arrays.sort(arr);
+            for (int j = 0; j < len; j++) {
+                score[i + j] = arr[j];
+            }
+        }
+
+        for (int i = 0; i < N; i++) {
+            sb.append(score[i]);
+            if (i != N-1) sb.append(' ');
+        }
+        System.out.println(sb);
+    }
 }
