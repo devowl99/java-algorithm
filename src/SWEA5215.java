@@ -1,3 +1,6 @@
+import java.io.*;
+import java.util.*;
+
 public class SWEA5215 {
 	static int T;
 	static int N; // 재료의 수
