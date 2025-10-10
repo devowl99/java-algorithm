@@ -1,4 +1,4 @@
-package BJ;
+package Baekjoon;
 
 import java.io.*;
 import java.util.*;
