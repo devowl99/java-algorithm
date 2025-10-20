@@ -34,9 +34,9 @@ public class BJ9663 {
             // x-y가 최소가 되는 경우 : x=0, y=N-1
             if (col[y] || d1[x+y] || d2[x-y + N-1]) continue;
 
-            col[y] = true;
-
-
+            col[y] = d1[x+y] = d2[x-y + N-1] = true;
+            dfs(x+1);
+            col[y] = d1[x+y] = d2[x-y + N-1] = false;
         }
     }
 }
