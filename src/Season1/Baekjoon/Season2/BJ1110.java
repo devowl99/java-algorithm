@@ -4,36 +4,28 @@ import java.io.*;
 import java.util.*;
 
 public class BJ1110 {
-    static int N;
-    static String s;
+    static int origin;
+    static int n;
     static int count;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        N = Integer.parseInt(br.readLine());
-        s = String.valueOf(N);
+        origin = Integer.parseInt(br.readLine());
+        n = origin;
 
+        count = 0;
         while (true){
             count++;
 
-            if (s.length()<2){
-                s = "0" + s;
-            }
+            int fir = n/10;
+            int sec = n%10;
 
-            char fir = s.charAt(0);
-            char sec = s.charAt(1);
+            n = n%10*10 + (fir+sec)%10;
 
-            String newS = ""+fir+sec;
-
-            if (s.equals(newS)){
-                break;
-            }
+            if (n == origin) break;
         }
 
         System.out.println(count);
     }
 }
-
-
-// 미완성
